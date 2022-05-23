@@ -1,0 +1,31 @@
+.main_cat {
+    margin-bottom: 80px;
+
+    &__titulo {
+        text-align: center;
+        font-size: 90px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    &__grid {
+        width: 95%;
+        margin: auto auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 30px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+    .main_cat__titulo {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main_cat__titulo {
+        font-size: 60px;
+        margin-bottom: 30px;
+    }
+}

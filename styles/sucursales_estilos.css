@@ -1,0 +1,123 @@
+.main_s__titulo {
+  text-align: center;
+  font-size: 90px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.main_s__container {
+  height: 500px;
+  width: 95%;
+  margin: auto;
+  margin-top: 50px;
+  /* border: 1px black solid; */
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.349);
+          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.349);
+  /* border-radius: 20px; */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main_s__container div {
+  width: 50%;
+}
+
+.main_s__container div p {
+  margin: 10px;
+  line-height: 50px;
+}
+
+.main_s__container div .p1 {
+  font-size: 45px;
+}
+
+.main_s__container div .p2 {
+  font-size: 35px;
+}
+
+.main_s__container iframe {
+  width: 50%;
+  height: 100%;
+}
+
+.main_s .c2 {
+  margin-bottom: 80px;
+}
+
+@media (max-width: 900px) {
+  .main_s__container {
+    width: 100%;
+    height: 800px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .main_s__container div {
+    width: 100%;
+    height: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+  }
+  .main_s__container iframe {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+  .main_s__titulo {
+    font-size: 60px;
+    margin-bottom: 0px;
+  }
+  .c1 {
+    margin-top: 20px;
+  }
+  .main_s__container div .p1 {
+    font-size: 35px;
+  }
+  .main_s__container div .p2 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main_s__titulo {
+    font-size: 50px;
+    margin-bottom: 0px;
+  }
+  .c1 {
+    margin-top: 20px;
+  }
+  .main_s__container div .p1 {
+    font-size: 30px;
+  }
+  .main_s__container div .p2 {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--  -->
+    <link rel="stylesheet" href="../styles/header_y_footer_estilos.css">
+    <link rel="stylesheet" href="../styles/contacto_estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <title>Contacto - Jazmín Shoes</title>
+</head>
+<body>
+  <header class="header">
+    <a href="../index.html"><h1 class="header__logo">JAZMIN SHOES</h1></a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+      <div class="container-fluid">
+        <a class="navbar-brand header__nav header__inicio" href="../index.html">Inicio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            
+              <li class="nav-item dropdown header__nav">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorias
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="./otono_invierno.html">Otoño - invierno</a></li>
+                  <li><a class="dropdown-item" href="./primavera_verano.html">Primavera - verano</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="./lo_mas_vendido.html">Lo más vendido</a></li>
+                  <li><a class="dropdown-item" href="./lo_nuevo.html">Lo nuevo</a></li>
+                </ul>
+              </li>
+              <li class="nav-item header__nav">
+                <a class="nav-link" href="./sucursales.html">Sucursales</a>
+              </li>
+              <li class="nav-item header__nav">
+                <a class="nav-link" href="./contacto.html">Contacto</a>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </nav>
+</header>
+
+    <main class="main_c">
+        <h2 class="main_c__titulo">Contacto</h2>
+
+        <form> <!-- action="enviar.php" method="get" enctype="text/plain" -->
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="email" id="mail" name="mail" placeholder="Email" required>
+            <div class="input_tel">
+                <input class="input_tel__texto" type="text" id="tel" placeholder="Teléfono">
+                <div class="checkbox">
+                    <input type="checkbox" name="term" id="term" value="1">Es móvil
+                </div>
+            </div>
+            <textarea name="multi" id="multi" placeholder="Mensaje" required></textarea>
+
+            <input class="boton" type="submit" value="Enviar">
+        </form>
+
+
+    </main>
+
+    <hr>
+
+    <footer class="footer">
+
+      <div class="footer__redes">
+        <a href="https://www.instagram.com/" target="_blank"><img src="../img/icons8-instagram-50.png" alt=""></a>
+        <a href="https://twitter.com/?lang=es" target="_blank"><img src="../img/icons8-twitter-50.png" alt=""></a>
+        <a href="https://www.facebook.com/" target="_blank"><img src="../img/icons8-facebook-50.png" alt=""></a>
+      </div>
+
+      <div class="footer__pages">
+        <h5><a href="./sucursales.html">Sucursales</a></h5>
+        <h5><a href="./contacto.html">Contacto</a></h5>
+      </div>
+
+      <ul class="footer__contacto">
+
+        <li>
+          <a href="https://wa.me/5491112345678" target="_blank">
+            <div>
+              <img src="../img/icons8-whatsapp-50.png" alt="">
+              54 911 1234-5678
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="tel:6380-4581">
+            <div>
+              <img src="../img/icons8-teléfono-50.png" alt="">
+              6380-1234
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="mailto:contacto@jazminshoes.com">
+            <div>
+              <img src="../img/icons8-correo-50.png" alt="">
+              contacto@jazminshoes.com
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="footer__ubicaciones">
+        <li>
+          <a href="./sucursales.html">
+            <div>
+              <img src="../img/icons8-marker-o-50.png" alt="">
+              Avellaneda 3000 - Flores - CABA
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="./sucursales.html">
+            <div>
+              <img src="../img/icons8-marker-o-50.png" alt="">
+              Arieta 3100 - San Justo - La Matanza
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <p class="footer__copyright">© 2022 JAZMÍN SHOES. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
