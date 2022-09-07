@@ -1,13 +1,9 @@
 let listaProductosTotal = []
 let productosRepetidos = []
-
+                                            // se genera un array de todos los productos de todas las categorías, sin repeticiones
 listaProductosLMV.forEach((producto) => {
-    let encontrado = productosRepetidos.find(prod => prod.nombre == producto.nombre)
-
-    if(!encontrado){
-        listaProductosTotal.push(producto)
-        productosRepetidos.push(producto)
-    }
+    listaProductosTotal.push(producto)
+    productosRepetidos.push(producto)
 })
 
 listaProductosLN.forEach((producto) => {
@@ -37,7 +33,7 @@ listaProductosPV.forEach((producto) => {
     }
 })
 
-let cssHeaderYFooter = document.getElementById("cssHeaderYFooter")
+let cssHeaderYFooter = document.getElementById("cssHeaderYFooter") // todas las llamadas a elementos del html
 let cssIndex = document.getElementById("cssIndex")
 let cssCategorias = document.getElementById("cssCategorias")
 let buscadorInput = document.getElementById("buscadorInput")
@@ -48,7 +44,7 @@ let titulo = document.getElementById("titulo")
 let subtitulo = document.getElementById("subtitulo")
 let gridGaleria = document.getElementById("gridGaleria")
 
-let clasesElementosHeader = []
+let clasesElementosHeader = [] // creamos una lista con las clases de los elementos de Bootstrap, para poder poner el texto en blanco en el modo nocturno
 
 for(elemento of modNocTxtBlanco){
     clasesElementosHeader.push(elemento.getAttribute("class"))
@@ -56,17 +52,17 @@ for(elemento of modNocTxtBlanco){
 
 actualizarModoNocturno()
 
-buscadorInput.addEventListener("keydown", (e) => {
+buscadorInput.addEventListener("keydown", (e) => { // caja de búsqueda
     if(e.key == "Enter" && buscadorInput.value != ""){
         enviarABuscador()
     }
 })
 
-buscadorBoton.addEventListener("click", () => {
+buscadorBoton.addEventListener("click", () => { // botón de búsqueda
     enviarABuscador()
 })
 
-botonModoNocturno.addEventListener("click", () => {
+botonModoNocturno.addEventListener("click", () => { // botón modo nocturno
     let modoNocturno = localStorage.getItem("modoNocturno")
 
     if(modoNocturno == "true"){
@@ -81,14 +77,14 @@ botonModoNocturno.addEventListener("click", () => {
 
 let busqueda = localStorage.getItem("busqueda")
 
-if(!busqueda){
+if(!busqueda){ // se toma la búsqueda de localStorage, si no existe se la crea con un string vacío
     localStorage.setItem("busqueda", "")
     busqueda = localStorage.getItem("busqueda")
 }
 
-let busqCortada = busqueda
+let busqCortada = busqueda // si la búsqueda termina en s, se le saca esa letra, para transformar las búsquedas del plural al singular, a menos que la búsqueda sea precisamente "s"
 if(busqueda.slice(-1) == "s" && busqueda != "s"){
-    busqCortada = busqueda.slice(0, -1)
+    busqCortada = busqueda.slice(0, -1) // la página trabaja con el string cortado pero al usuario se le muestra exactamente lo que buscó
 }
 
 let filtrado = listaProductosTotal.filter(producto => producto.nombre.toLowerCase().includes(busqCortada.toLowerCase()))
@@ -104,13 +100,13 @@ else{
     subtitulo.innerText = `No se encontraron resultados para '${busqueda}'
                             Tal vez te interesen los siguientes productos:`
 
-    let prodsAleatorios = []
+    let prodsAleatorios = [] // si no se encuentran resultados para la búsqueda, se muestran 4 resultados aleatorios del total de productos
     let i = 0
 
     while(i < 4){
         let num = Math.floor(Math.random() * listaProductosTotal.length)
 
-        if(!prodsAleatorios.includes(listaProductosTotal[num])){
+        if(!prodsAleatorios.includes(listaProductosTotal[num])){ // nos aseguramos que no haya repetidos entre los 4 productos
             prodsAleatorios.push(listaProductosTotal[num])
             i++
         }
@@ -123,15 +119,15 @@ function enviarABuscador(){
     window.location.href = "../pages/buscador.html"
 }
 
-function actualizarModoNocturno(){
+function actualizarModoNocturno(){ // cambia los css, clases de Bootstrap y texto del botón según corresponda
     let modoNocturno = localStorage.getItem("modoNocturno")
 
     if(modoNocturno == "true"){
-        cssHeaderYFooter.setAttribute("href", "../styles/header_y_footer_estilos_modo_nocturno.css")
+        cssHeaderYFooter.setAttribute("href", "../styles/header_y_footer_estilos_modo_nocturno.css") // se cambian los href de todos los css de la pág a las versiones nocturnas
         cssIndex.setAttribute("href", "../styles/index_estilos_modo_nocturno.css")
         cssCategorias.setAttribute("href", "../styles/categorias_estilos_modo_nocturno.css")
 
-        for(let i=0; i<modNocTxtBlanco.length; i++){
+        for(let i=0; i<modNocTxtBlanco.length; i++){ // se cambian los elementos de Bootstrap: se le agrega la clase text-white a cada elemento
             modNocTxtBlanco[i].setAttribute("class", clasesElementosHeader[i] + " text-white")
         }
 
@@ -153,7 +149,7 @@ function actualizarModoNocturno(){
 function generarPagina(lista){
     lista.forEach((producto) => {
         let itemGaleria = document.createElement("div")
-        itemGaleria.setAttribute("class", "card")
+        itemGaleria.setAttribute("class", "card")  // se crea una card para cada producto
         itemGaleria.innerHTML = `<div class="figure">
                                     <img class="Sirv image-main" src="../img/${producto.imagen}"  alt="${producto.nombre}">
                                     <img class="Sirv image-hover" src="../img/${producto.imagen_r}"  alt="${producto.nombre}">
@@ -167,16 +163,16 @@ function generarPagina(lista){
         let divDatos = document.createElement("div")
         let btn = document.createElement("button")
 
-        fetch("../js/datos.json")
+        fetch("../js/datos.json") // agregamos datos adicionales de un json
         .then((res) => res.json())
         .then((json) => mostrarDatos(json, producto, divDatos))
         .catch((error) => console.log(error))
 
         if (producto.stock > 0) {
-            let carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+            let carritoStorage = JSON.parse(localStorage.getItem("carrito")) // se busca si el carrito ya existe en localStorage
             let objCarrito = ""
 
-            if(carritoStorage){
+            if(carritoStorage){ // si existe el carrito, buscamos si está el producto dentro
                 objCarrito = carritoStorage.find(prod => prod.nombre == producto.nombre)
             }
 
@@ -191,15 +187,15 @@ function generarPagina(lista){
 
                 let funcionAgregar = true
 
-                btn.addEventListener("click", () => {
+                btn.addEventListener("click", () => {  // si el producto no está en el carrito, el botón tiene la función de agregarlo
                     if (funcionAgregar) {
                         let carritoStorage = JSON.parse(localStorage.getItem("carrito"))
 
-                        if (!carritoStorage) {
+                        if (!carritoStorage) { // si no existe el carrito en localStorage, se lo crea
                             localStorage.setItem("carrito", JSON.stringify([]))
                             carritoStorage = JSON.parse(localStorage.getItem("carrito"))
                         }
-                        carritoStorage.push(producto)
+                        carritoStorage.push(producto) // se agrega el producto al carrito
                         localStorage.setItem("carrito", JSON.stringify(carritoStorage))
 
                         Toastify({
@@ -219,7 +215,7 @@ function generarPagina(lista){
 
                         btn.innerText = "Este producto está en tu carrito! Clickeá para verlo"
 
-                        funcionAgregar = false
+                        funcionAgregar = false // la función del botón pasa a ser la de redireccionar a la pág del carrito
                     }
                     else {
                         window.location.href = "../pages/tu_carrito.html"

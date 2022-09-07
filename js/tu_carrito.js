@@ -1,4 +1,4 @@
-let cssHeaderYFooter = document.getElementById("cssHeaderYFooter")
+let cssHeaderYFooter = document.getElementById("cssHeaderYFooter") // todas las llamadas a elementos del html
 let cssIndex = document.getElementById("cssIndex")
 let cssCategorias = document.getElementById("cssCategorias")
 let buscadorInput = document.getElementById("buscadorInput")
@@ -8,7 +8,7 @@ let modNocTxtBlanco = document.getElementsByClassName("modNocTxtBlanco")
 let gridGaleria = document.getElementById("gridGaleria")
 let subtitulo = document.getElementById("subtitulo")
 
-let clasesElementosHeader = []
+let clasesElementosHeader = [] // creamos una lista con las clases de los elementos de Bootstrap, para poder poner el texto en blanco en el modo nocturno
 
 for(elemento of modNocTxtBlanco){
     clasesElementosHeader.push(elemento.getAttribute("class"))
@@ -16,17 +16,17 @@ for(elemento of modNocTxtBlanco){
 
 actualizarModoNocturno()
 
-buscadorInput.addEventListener("keydown", (e) => {
+buscadorInput.addEventListener("keydown", (e) => { // caja de búsqueda
     if(e.key == "Enter" && buscadorInput.value != ""){
         enviarABuscador()
     }
 })
 
-buscadorBoton.addEventListener("click", () => {
+buscadorBoton.addEventListener("click", () => { // botón de búsqueda
     enviarABuscador()
 })
 
-botonModoNocturno.addEventListener("click", () => {
+botonModoNocturno.addEventListener("click", () => { // botón modo nocturno
     let modoNocturno = localStorage.getItem("modoNocturno")
 
     if(modoNocturno == "true"){
@@ -48,15 +48,15 @@ function enviarABuscador(){
     window.location.href = "../pages/buscador.html"
 }
 
-function actualizarModoNocturno(){
+function actualizarModoNocturno(){ // cambia los css, clases de Bootstrap y texto del botón según corresponda
     let modoNocturno = localStorage.getItem("modoNocturno")
 
     if(modoNocturno == "true"){
-        cssHeaderYFooter.setAttribute("href", "../styles/header_y_footer_estilos_modo_nocturno.css")
+        cssHeaderYFooter.setAttribute("href", "../styles/header_y_footer_estilos_modo_nocturno.css") // se cambian los href de todos los css de la pág a las versiones nocturnas
         cssIndex.setAttribute("href", "../styles/index_estilos_modo_nocturno.css")
         cssCategorias.setAttribute("href", "../styles/categorias_estilos_modo_nocturno.css")
 
-        for(let i=0; i<modNocTxtBlanco.length; i++){
+        for(let i=0; i<modNocTxtBlanco.length; i++){ // se cambian los elementos de Bootstrap: se le agrega la clase text-white a cada elemento
             modNocTxtBlanco[i].setAttribute("class", clasesElementosHeader[i] + " text-white")
         }
 
@@ -99,39 +99,39 @@ function generarPagina(){
             .then((json) => mostrarDatos(json, producto, divDatos))
             .catch((error) => console.log(error))
 
-            let cantidad = document.createElement("p")
+            let cantidad = document.createElement("p") // cantidad de este producto en el carrito
             cantidad.innerText = `Cantidad: ${producto.cantidad}`
 
             let txtSinStock = document.createElement("p")
             txtSinStock.innerText = "No tenemos más stock de este producto."
             txtSinStock.setAttribute("style", "display: none")
 
-            let btnMenos = document.createElement("button")
+            let btnMenos = document.createElement("button") // botón para restar una unidad de este producto del carrito
             btnMenos.innerText = "-"
             btnMenos.disabled = analizarDesactivarBoton(producto.cantidad)
 
             btnMenos.addEventListener("click", () => {
-                let objCarrito = carritoStorage.find(prod => prod.nombre == producto.nombre)
+                let objCarrito = carritoStorage.find(prod => prod.nombre == producto.nombre) // se busca la ubicación del producto en el array de objetos del carrito, y se elimina una unidad
                 let ubicacion = carritoStorage.indexOf(objCarrito)
                 carritoStorage[ubicacion].cantidad--
 
-                btnMenos.disabled = analizarDesactivarBoton(carritoStorage[ubicacion].cantidad)
+                btnMenos.disabled = analizarDesactivarBoton(carritoStorage[ubicacion].cantidad) // si hay una sola unidad en el carrito, se desabilita el botón
 
                 cantidad.innerText = `Cantidad: ${carritoStorage[ubicacion].cantidad}`
-                precioTxt.innerText = `$${producto.precio * carritoStorage[ubicacion].cantidad}`
+                precioTxt.innerText = `$${producto.precio * carritoStorage[ubicacion].cantidad}` // precio total para este producto
 
-                total -= producto.precio
+                total -= producto.precio // precio total de todos los productos
                 subtitulo.innerText = `Total: $${total}.`
 
-                localStorage.setItem("carrito", JSON.stringify(carritoStorage))
+                localStorage.setItem("carrito", JSON.stringify(carritoStorage)) // actualizamos el localStorage
 
-                if (btnMas.disabled == true) {
+                if (btnMas.disabled == true) { // si el botón para sumar unidades está deshabilitado, se lo habilita
                     txtSinStock.setAttribute("style", "display: none")
                     btnMas.disabled = false
                 }
             })
 
-            let btnMas = document.createElement("button")
+            let btnMas = document.createElement("button") // botón para sumar una unidad de este producto del carrito
             btnMas.innerText = "+"
 
             btnMas.addEventListener("click", () => {
@@ -140,7 +140,7 @@ function generarPagina(){
                     let ubicacion = carritoStorage.indexOf(objCarrito)
                     carritoStorage[ubicacion].cantidad++
 
-                    btnMenos.disabled = false
+                    btnMenos.disabled = false // si el botón menos está deshabilitado, se lo habilita
 
                     cantidad.innerText = `Cantidad: ${carritoStorage[ubicacion].cantidad}`
                     precioTxt.innerText = `$${producto.precio * carritoStorage[ubicacion].cantidad}`
@@ -151,15 +151,15 @@ function generarPagina(){
                     localStorage.setItem("carrito", JSON.stringify(carritoStorage))
                 }
                 else {
-                    txtSinStock.setAttribute("style", "display: auto")
+                    txtSinStock.setAttribute("style", "display: auto") // si no queda más stock, se le avisa al usuario y se habilita el botón
                     btnMas.disabled = true
                 }
             })
 
-            let precioTxt = document.createElement("p")
+            let precioTxt = document.createElement("p") // precio total para este producto
             precioTxt.innerText = `$${producto.precio * producto.cantidad}`
 
-            let btnEliminarProd = document.createElement("button")
+            let btnEliminarProd = document.createElement("button") // botón para eliminar el producto entero del carrito
             btnEliminarProd.innerText = "Eliminar del carrito"
 
             btnEliminarProd.addEventListener("click", () => {
@@ -183,7 +183,7 @@ function generarPagina(){
                     style: {
                       background: "linear-gradient(to right, #00b09b, #96c93d)",
                     },
-                    onClick: function(){
+                    onClick: function(){ // función para recuperar el producto del carrito, solo se puede llamar una vez para evitar duplicados
                         if(flag){
                             carritoStorage.splice(ubicacion, 0, objCarrito)
                             localStorage.setItem("carrito", JSON.stringify(carritoStorage))

@@ -1,4 +1,4 @@
-let cssHeaderYFooter = document.getElementById("cssHeaderYFooter")
+let cssHeaderYFooter = document.getElementById("cssHeaderYFooter") // todas las llamadas a elementos del html
 let cssIndex = document.getElementById("cssIndex")
 let cssCategorias = document.getElementById("cssCategorias")
 let buscadorInput = document.getElementById("buscadorInput")
@@ -6,7 +6,6 @@ let buscadorBoton = document.getElementById("buscadorBoton")
 let botonModoNocturno = document.getElementById("botonModoNocturno")
 let modNocTxtBlanco = document.getElementsByClassName("modNocTxtBlanco")
 let gridGaleria = document.getElementById("gridGaleria")
-let inputBuscar = document.getElementById("inputBuscar")
 let textoDelFiltro = document.getElementById("textoDelFiltro")
 let min = document.getElementById("min")
 let max = document.getElementById("max")
@@ -14,7 +13,7 @@ let botonFiltrar = document.getElementById("botonFiltrar")
 let botonRecargar = document.getElementById("botonRecargar")
 let dropdown = document.getElementById("dropdown")
 
-let clasesElementosHeader = []
+let clasesElementosHeader = [] // creamos una lista con las clases de los elementos de Bootstrap, para poder poner el texto en blanco en el modo nocturno
 
 for(elemento of modNocTxtBlanco){
     clasesElementosHeader.push(elemento.getAttribute("class"))
@@ -22,17 +21,17 @@ for(elemento of modNocTxtBlanco){
 
 actualizarModoNocturno()
 
-buscadorInput.addEventListener("keydown", (e) => {
+buscadorInput.addEventListener("keydown", (e) => { // caja de búsqueda
     if(e.key == "Enter" && buscadorInput.value != ""){
         enviarABuscador()
     }
 })
 
-buscadorBoton.addEventListener("click", () => {
+buscadorBoton.addEventListener("click", () => { // botón de búsqueda
     enviarABuscador()
 })
 
-botonModoNocturno.addEventListener("click", () => {
+botonModoNocturno.addEventListener("click", () => { // botón modo nocturno
     let modoNocturno = localStorage.getItem("modoNocturno")
 
     if(modoNocturno == "true"){
@@ -47,47 +46,23 @@ botonModoNocturno.addEventListener("click", () => {
 
 actualizarGaleria(listaProductosLMV)
 
-inputBuscar.addEventListener("keyup", () => {
-    filtrado = listaProductosLMV.filter(producto => producto.nombre.toLowerCase().includes(inputBuscar.value.toLowerCase()))
-    actualizarGaleria(filtrado)
-
-    min.value = ""
-    max.value = ""
-
-    if (inputBuscar.value == "") {
-        textoDelFiltro.setAttribute("style", "display: none")
-        textoDelFiltro.innerText = ""
-    }
-    else {
-        if (filtrado.length > 0) {
-            textoDelFiltro.innerText = `Productos que incluyen "${inputBuscar.value}":`
-        }
-        else {
-            textoDelFiltro.innerText = `No tenemos productos que incluyan "${inputBuscar.value}".`
-        }
-
-        textoDelFiltro.setAttribute("style", "display: auto")
-    }
-})
-
-min.addEventListener("keydown", (e) => {
+min.addEventListener("keydown", (e) => { // caja precio mínimo
     if (e.key == "Enter") {
         filtrarPrecios()
     }
 })
 
-max.addEventListener("keydown", (e) => {
+max.addEventListener("keydown", (e) => { // caja precio máximo
     if (e.key == "Enter") {
         filtrarPrecios()
     }
 })
 
-botonFiltrar.addEventListener("click", () => {
+botonFiltrar.addEventListener("click", () => { // botón filtrar
     filtrarPrecios()
 })
 
-botonRecargar.addEventListener("click", () => {
-    inputBuscar.value = ""
+botonRecargar.addEventListener("click", () => { // botón recargar
     min.value = ""
     max.value = ""
 
@@ -97,7 +72,7 @@ botonRecargar.addEventListener("click", () => {
     textoDelFiltro.innerText = ""
 })
 
-listaMenAMay = [...listaProductosLMV]
+listaMenAMay = [...listaProductosLMV] // ---dropdown
 listaMenAMay.sort((prodA, prodB) => prodA.precio - prodB.precio)
 
 listaMayAMen = [...listaProductosLMV]
@@ -123,15 +98,15 @@ dropdown.addEventListener("change", () => {
     ordenarGaleria(dropdown.value)
 })
 
-function actualizarModoNocturno(){
+function actualizarModoNocturno(){ // cambia los css, clases de Bootstrap y texto del botón según corresponda
     let modoNocturno = localStorage.getItem("modoNocturno")
 
     if(modoNocturno == "true"){
-        cssHeaderYFooter.setAttribute("href", "../styles/header_y_footer_estilos_modo_nocturno.css")
+        cssHeaderYFooter.setAttribute("href", "../styles/header_y_footer_estilos_modo_nocturno.css") // se cambian los href de todos los css de la pág a las versiones nocturnas
         cssIndex.setAttribute("href", "../styles/index_estilos_modo_nocturno.css")
         cssCategorias.setAttribute("href", "../styles/categorias_estilos_modo_nocturno.css")
 
-        for(let i=0; i<modNocTxtBlanco.length; i++){
+        for(let i=0; i<modNocTxtBlanco.length; i++){ // se cambian los elementos de Bootstrap: se le agrega la clase text-white a cada elemento
             modNocTxtBlanco[i].setAttribute("class", clasesElementosHeader[i] + " text-white")
         }
 
@@ -160,7 +135,7 @@ function actualizarGaleria(lista) {
 
     lista.forEach((producto) => {
         let itemGaleria = document.createElement("div")
-        itemGaleria.setAttribute("class", "card")
+        itemGaleria.setAttribute("class", "card") // se crea una card para cada producto
         itemGaleria.innerHTML = `<div class="figure">
                                     <img class="Sirv image-main" src="../img/${producto.imagen}"  alt="${producto.nombre}">
                                     <img class="Sirv image-hover" src="../img/${producto.imagen_r}"  alt="${producto.nombre}">
@@ -174,16 +149,16 @@ function actualizarGaleria(lista) {
         let divDatos = document.createElement("div")
         let btn = document.createElement("button")
 
-        fetch("../js/datos.json")
+        fetch("../js/datos.json") // agregamos datos adicionales de un json
         .then((res) => res.json())
         .then((json) => mostrarDatos(json, producto, divDatos))
         .catch((error) => console.log(error))
 
         if (producto.stock > 0) {
-            let carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+            let carritoStorage = JSON.parse(localStorage.getItem("carrito")) // se busca si el carrito ya existe en localStorage
             let objCarrito = ""
 
-            if(carritoStorage){
+            if(carritoStorage){ // si existe el carrito, buscamos si está el producto dentro
                 objCarrito = carritoStorage.find(prod => prod.nombre == producto.nombre)
             }
 
@@ -198,15 +173,15 @@ function actualizarGaleria(lista) {
 
                 let funcionAgregar = true
 
-                btn.addEventListener("click", () => {
+                btn.addEventListener("click", () => { // si el producto no está en el carrito, el botón tiene la función de agregarlo
                     if (funcionAgregar) {
-                        let carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+                        let carritoStorage = JSON.parse(localStorage.getItem("carrito")) 
 
-                        if (!carritoStorage) {
+                        if (!carritoStorage) { // si no existe el carrito en localStorage, se lo crea
                             localStorage.setItem("carrito", JSON.stringify([]))
                             carritoStorage = JSON.parse(localStorage.getItem("carrito"))
                         }
-                        carritoStorage.push(producto)
+                        carritoStorage.push(producto) // se agrega el producto al carrito
                         localStorage.setItem("carrito", JSON.stringify(carritoStorage))
 
                         Toastify({
@@ -226,7 +201,7 @@ function actualizarGaleria(lista) {
 
                         btn.innerText = "Este producto está en tu carrito! Clickeá para verlo"
 
-                        funcionAgregar = false
+                        funcionAgregar = false // la función del botón pasa a ser la de redireccionar a la pág del carrito
                     }
                     else {
                         window.location.href = "../pages/tu_carrito.html"
@@ -246,14 +221,12 @@ function actualizarGaleria(lista) {
 }
 
 function filtrarPrecios() {
-    inputBuscar.value = ""
-
     if (isNaN(min.value) || isNaN(max.value) || (min.value > max.value && max.value != "")) {
         min.value = ""
         max.value = ""
         alert("Número/s inválido/s")
     }
-    else if ((min.value == "" && max.value == "")) {
+    else if ((min.value == "" && max.value == "")) { // se recarga la página
         actualizarGaleria(listaProductosLMV)
         textoDelFiltro.setAttribute("style", "display: none")
         textoDelFiltro.innerText = ""
