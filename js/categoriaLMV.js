@@ -28,7 +28,9 @@ buscadorInput.addEventListener("keydown", (e) => { // caja de búsqueda
 })
 
 buscadorBoton.addEventListener("click", () => { // botón de búsqueda
-    enviarABuscador()
+    if(buscadorInput.value != ""){
+        enviarABuscador()
+    }
 })
 
 botonModoNocturno.addEventListener("click", () => { // botón modo nocturno
@@ -147,7 +149,10 @@ function actualizarGaleria(lista) {
 
 
         let divDatos = document.createElement("div")
+        divDatos.setAttribute("class", "fuenteDefault")
+        
         let btn = document.createElement("button")
+        btn.setAttribute("class", "fuenteBold")
 
         fetch("../js/datos.json") // agregamos datos adicionales de un json
         .then((res) => res.json())

@@ -23,7 +23,9 @@ buscadorInput.addEventListener("keydown", (e) => { // caja de búsqueda
 })
 
 buscadorBoton.addEventListener("click", () => { // botón de búsqueda
-    enviarABuscador()
+    if(buscadorInput.value != ""){
+        enviarABuscador()
+    }
 })
 
 botonModoNocturno.addEventListener("click", () => { // botón modo nocturno
@@ -40,6 +42,11 @@ botonModoNocturno.addEventListener("click", () => { // botón modo nocturno
 })
 
 let carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+
+if(!carritoStorage){
+    localStorage.setItem("carrito", JSON.stringify([]))
+    carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+}
 
 generarPagina()
 
@@ -93,6 +100,7 @@ function generarPagina(){
                                     </div>`
 
             let divDatos = document.createElement("div")
+            divDatos.setAttribute("class", "fuenteDefault")
 
             fetch("../js/datos.json")
             .then((res) => res.json())
@@ -100,11 +108,13 @@ function generarPagina(){
             .catch((error) => console.log(error))
 
             let cantidad = document.createElement("p") // cantidad de este producto en el carrito
+            cantidad.setAttribute("class", "fuenteDefault")
             cantidad.innerText = `Cantidad: ${producto.cantidad}`
 
             let txtSinStock = document.createElement("p")
-            txtSinStock.innerText = "No tenemos más stock de este producto."
+            txtSinStock.setAttribute("class", "fuenteDefault")
             txtSinStock.setAttribute("style", "display: none")
+            txtSinStock.innerText = "No tenemos más stock de este producto."
 
             let btnMenos = document.createElement("button") // botón para restar una unidad de este producto del carrito
             btnMenos.innerText = "-"
@@ -157,9 +167,11 @@ function generarPagina(){
             })
 
             let precioTxt = document.createElement("p") // precio total para este producto
+            precioTxt.setAttribute("class", "fuenteDefault")
             precioTxt.innerText = `$${producto.precio * producto.cantidad}`
 
             let btnEliminarProd = document.createElement("button") // botón para eliminar el producto entero del carrito
+            btnEliminarProd.setAttribute("class", "fuenteBold")
             btnEliminarProd.innerText = "Eliminar del carrito"
 
             btnEliminarProd.addEventListener("click", () => {
@@ -181,7 +193,7 @@ function generarPagina(){
                     position: "right",
                     stopOnFocus: true,
                     style: {
-                      background: "linear-gradient(to right, #00b09b, #96c93d)",
+                      background: "rgb(255, 82, 82)",
                     },
                     onClick: function(){ // función para recuperar el producto del carrito, solo se puede llamar una vez para evitar duplicados
                         if(flag){

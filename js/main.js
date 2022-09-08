@@ -20,7 +20,9 @@ buscadorInput.addEventListener("keydown", (e) => { // caja de búsqueda
 })
 
 buscadorBoton.addEventListener("click", () => { // botón de búsqueda
-    enviarABuscador()
+    if(buscadorInput.value != ""){
+        enviarABuscador()
+    }
 })
 
 botonModoNocturno.addEventListener("click", () => { // botón modo nocturno

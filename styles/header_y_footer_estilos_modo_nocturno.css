@@ -1,3 +1,29 @@
+.espaciado{
+  margin: 15px;
+}
+
+.fuenteDefault{
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
+
+.fuenteBold{
+  font-weight: bolder;
+}
+
+.subtituloCarrito{
+  font-size: 40px;
+  margin-top: 40px;
+  margin-left: 45px;
+}
+
+.subtituloBuscador{
+  text-align: center;
+  margin: 30px;
+  font-size: 40px;
+  line-height: 60px;
+}
+
 body {
   margin: 15px;
   font-family: 'Roboto', sans-serif;
